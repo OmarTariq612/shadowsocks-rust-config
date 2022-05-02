@@ -1,0 +1,20 @@
+{
+    "servers": [
+        {
+            "server": "0.0.0.0",
+            "mode": "tcp_and_udp",
+            "server_port": <SHADOWSOCKS_PORT>,
+            "password": "<SECRET_PASSWORD>",
+            "timeout": 300,
+            "method": "chacha20-ietf-poly1305"
+        },
+        {
+            "server": "::0",
+            "mode": "tcp_and_udp",
+            "server_port": <SHADOWSOCKS_PORT>,
+            "password": "<SECRET_PASSWORD>",
+            "timeout": 300,
+            "method": "chacha20-ietf-poly1305"
+        }
+    ]
+}
