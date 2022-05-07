@@ -15,7 +15,7 @@ First install `shadowsocks-rust` (you can also build it yourself) for more info 
 ## Client configuration
 There are 2 types of clients that can connect to the shadowsocks server:
 * Socks5 local client (`sslocal --protocol socks`)
-* Tunnel local client (`sstunnel --protocol tunnel`)
+* Tunnel local client (`sslocal --protocol tunnel`)
 ## Socks5 client (`socks`)
 * Fill the required info before running `sslocal`.
 
