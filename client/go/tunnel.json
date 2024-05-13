@@ -1,0 +1,36 @@
+{
+    "servers": [
+        {
+            "name": "tunnel",
+            "protocol": "direct",
+            "mtu": 1500,
+            "listen": ":<LOCAL_PORT>",
+            "enableTCP": true,
+            "listenerTFO": true,
+            "disableInitialPayloadWait": false,
+            "enableUDP": true,
+            "natTimeoutSec": 60,
+            "udpBatchMode": "sendmmsg",
+            "udpRelayBatchSize": 2,
+            "udpServerRecvBatchSize": 8,
+            "udpSendChannelCapacity": 64,
+            "tunnelRemoteAddress": "<FORWARD_ADDRESS>:<FORWARD_PORT>",
+            "tunnelUDPTargetOnly": false
+        }
+    ],
+    "clients": [
+        {
+            "name": "ss-2022-a",
+            "protocol": "2022-blake3-aes-128-gcm",
+            "endpoint": "<SHADOWSOCKS_SERVER_PUBLIC_IP>:<SHADOWSOCKS_PORT>",
+            "enableTCP": true,
+            "dialerTFO": true,
+            "tcpFastOpenFallback": false,
+            "allowSegmentedFixedLengthHeader": false,
+            "enableUDP": true,
+            "mtu": 1500,
+            "psk": "<SECRET_PASSWORD>",
+            "slidingWindowFilterSize": 256
+        }
+    ]
+}

@@ -1,0 +1,14 @@
+{
+    "servers": [
+        {
+            "name": "ss-2022",
+            "listen": ":<SHADOWSOCKS_PORT>",
+            "protocol": "2022-blake3-aes-128-gcm",
+            "enableTCP": true,
+            "listenerTFO": true,
+            "enableUDP": true,
+            "mtu": 1500,
+            "psk": "<SECRET_PASSWORD>"
+        }
+    ]
+}

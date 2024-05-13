@@ -1,23 +1,39 @@
-# shadowsocks-rust configuration
-First install `shadowsocks-rust` (you can also build it yourself) for more info go to [the official repo](https://github.com/shadowsocks/shadowsocks-rust).
-## Server configuration (`ssserver`)
-* Make sure to fill the required info in the config file before running `ssserver`.
+# shadowsocks configuration
 
-    `<SHADOWSOCKS_PORT>` : The port which `ssserver` listens to.
+To generate a password that can be accepted by both versions use the following command:
 
-    `<SECRET_PASSWORD>` : The password that `ssserver` uses to authenticate users.
+```
+openssl rand -base64 <key_size>
+```
 
-* Run `ssserver` using the following command:
-    ```
-    ssserver -c server/conf_4.json
-    ```
-    note: if you want to support IPv6 run the server using `server/conf_4_6.json` instead.
+* The `<key_size>` depends on the used encryption method, I'm using `2022-blake3-aes-128-gcm` so the appropriate `<key_size>` is 16.
+
+* Use the generated key as the `password` or the `psk` (depending on the naming of the used version).
+
+## Server configuration
+
+* Fill the required configurations before running the server.
+
+    `<SHADOWSOCKS_PORT>` : The port the server listens to.
+
+    `<SECRET_PASSWORD>` : The password the server uses to authenticate users.
+
+* Run
+    * Rust:
+        ```
+        ssserver -c server/rust/server.json
+        ```
+
+    * Go:
+        ```
+        shadowsocks-go -confPath server/go/server.json
+        ```
+
 ## Client configuration
-There are 2 types of clients that can connect to the shadowsocks server:
-* Socks5 local client (`sslocal --protocol socks`)
-* Tunnel local client (`sslocal --protocol tunnel`)
-## Socks5 client (`socks`)
-* Fill the required info before running `sslocal`.
+
+### Socks5 client:
+
+* Fill the required configuration before running the client
 
     `<SHADOWSOCKS_SERVER_PUBLIC_IP>` : shadowsocks server Public IP address.
 
@@ -27,17 +43,20 @@ There are 2 types of clients that can connect to the shadowsocks server:
 
     `<SECRET_PASSWORD>` : The password required by the shadowsocks server.
 
-* Run `sslocal` by either passing all parameters via command line:
-    ```
-    # Pass all parameters via command line
-    sslocal --protocol socks -b "0.0.0.0:<LOCAL_PORT>" -s "<SHADOWSOCKS_SERVER_PUBLIC_IP>:<SHADOWSOCKS_PORT>" -m "chacha20-ietf-poly1305" -k "<SECRET_PASSWORD>" -U --timeout 300
-    ```
-    or by referring to a config file:
-    ```
-    sslocal -c client/socks_proxy.json
-    ```
-## Tunnel client (`tunnel`)
-* Fill the required info before running `sslocal`.
+* Run
+    * Rust:
+        ```
+        sslocal -c client/rust/encrypted_socks.json
+        ```
+
+    * Go:
+        ```
+        shadowsocks-go -confPath client/go/encrypted_socks.json
+        ```
+
+### Tunnel client:
+
+* Fill the required configuration before running the client
 
     `<SHADOWSOCKS_SERVER_PUBLIC_IP>` : shadowsocks server Public IP address.
 
@@ -51,14 +70,19 @@ There are 2 types of clients that can connect to the shadowsocks server:
 
     `<FORWARD_PORT>` : The destination port.
 
-* Run `sslocal` by either passing all parameters via command line:
-    ```
-    # Pass all parameters via command line
-    sslocal --protocol tunnel -b "0.0.0.0:<LOCAL_PORT>" -f "<FORWARD_ADDRESS>:<FORWARD_PORT>" -s "<SHADOWSOCKS_SERVER_PUBLIC_IP>:<SHADOWSOCKS_PORT>" -m "chacha20-ietf-poly1305" -k "<SECRET_PASSWORD>" -U --timeout 300
-    ```
-    or by referring to a config file:
-    ```
-    sslocal -c client/tunnel.json
-    ```
-## REF
-There are a lot of customizations that you can make to suit your needs for more info visit the `shadowsocks-rust` [repo](https://github.com/shadowsocks/shadowsocks-rust).
+* Run
+    * Rust:
+        ```
+        sslocal -c client/rust/tunnel.json
+        ```
+
+    * Go:
+        ```
+        shadowsocks-go -confPath client/go/tunnel.json
+        ```
+
+## Ref
+
+* The rust version: https://github.com/shadowsocks/shadowsocks-rust?tab=readme-ov-file#configuration
+* The go version: https://github.com/database64128/shadowsocks-go/tree/main/docs
+* shadowsocks specs: https://github.com/Shadowsocks-NET/shadowsocks-specs

@@ -1,0 +1,20 @@
+{
+    "servers": [
+        {
+            "name": "socks5",
+            "protocol": "socks5",
+            "mtu": 1500,
+            "listen": ":<LOCAL_PORT>",
+            "enableTCP": true,
+            "listenerTFO": true,
+            "disableInitialPayloadWait": false,
+            "enableUDP": true,
+            "natTimeoutSec": 300,
+            "udpBatchMode": "sendmmsg",
+            "udpRelayBatchSize": 64,
+            "udpServerRecvBatchSize": 512,
+            "udpSendChannelCapacity": 1024
+        }
+    ],
+    "clients": []
+}

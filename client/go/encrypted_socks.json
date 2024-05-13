@@ -1,0 +1,34 @@
+{
+    "servers": [
+        {
+            "name": "socks5",
+            "protocol": "socks5",
+            "mtu": 1500,
+            "listen": ":<LOCAL_PORT>",
+            "enableTCP": true,
+            "listenerTFO": true,
+            "disableInitialPayloadWait": false,
+            "enableUDP": true,
+            "natTimeoutSec": 300,
+            "udpBatchMode": "sendmmsg",
+            "udpRelayBatchSize": 64,
+            "udpServerRecvBatchSize": 512,
+            "udpSendChannelCapacity": 1024
+        }
+    ],
+    "clients": [
+        {
+            "name": "ss-2022-a",
+            "protocol": "2022-blake3-aes-128-gcm",
+            "endpoint": "<SHADOWSOCKS_SERVER_PUBLIC_IP>:<SHADOWSOCKS_PORT>",
+            "enableTCP": true,
+            "dialerTFO": true,
+            "tcpFastOpenFallback": false,
+            "allowSegmentedFixedLengthHeader": false,
+            "enableUDP": true,
+            "mtu": 1500,
+            "psk": "<SECRET_PASSWORD>",
+            "slidingWindowFilterSize": 256
+        }
+    ]
+}
